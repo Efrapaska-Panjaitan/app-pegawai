@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Models\Department;
 
 class EmployeeController extends Controller
 {
@@ -12,7 +13,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::latest()->paginate(5);
+        //$employees = Employee::latest()->paginate(5);
+        $employees = Employee::with('department')->get();
         return view('employees.index', compact('employees'));
     }
 
@@ -21,7 +23,10 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create');
+        $departments = \App\Models\Department::all();
+        $positions = \App\Models\Position::all(); // Tambahkan ini
+
+        return view('employees.create', compact('departments', 'positions'));
     }
 
     /**
@@ -37,7 +42,9 @@ class EmployeeController extends Controller
                 'tanggal_lahir'     => 'required|date',
                 'alamat'            => 'required|string|max:255',
                 'tanggal_masuk'     => 'required|date',
-                'status'            => 'required|string|max:50'
+                'status'            => 'required|string|max:50',
+                'departemen_id'     => 'required|exists:departments,id',
+                'jabatan_id'        => 'required|exists:positions,id',
             ]
         );
         Employee::create($request->all());

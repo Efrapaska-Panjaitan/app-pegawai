@@ -21,6 +21,7 @@
         <th>Alamat</th>
         <th>Tanggal Masuk</th>
         <th>Status</th>
+        <th>Departemen</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -34,6 +35,7 @@
         <td>{{ $employee->alamat }}</td>
         <td>{{ $employee->tanggal_masuk }}</td>
         <td>{{ $employee->status }}</td>
+        <td>{{ $employee->department->nama_departemen ?? '-' }}</td>
         <td>
           <a href="{{ route('employees.show', $employee->id) }}">Detail</a> |
           <a href="{{ route('employees.edit', $employee->id) }}">Edit</a> |
