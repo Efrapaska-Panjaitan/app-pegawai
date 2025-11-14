@@ -30,11 +30,14 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'nama_departemen' => 'required|string|max:100',
+            'nama_departemen' => 'required|string|max:100',
         ]);
 
-        Department::create($request->all());
-        return redirect()->route('departments.index');
+        Department::create([
+            'nama_departemen' => $request->nama_departemen,
+        ]);
+        return redirect()->route('departments.index')
+            ->with('Sukses', 'Departemen berhasil ditambahkan');
     }
 
     /**

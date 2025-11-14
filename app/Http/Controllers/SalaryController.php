@@ -11,10 +11,21 @@ class SalaryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $salaries = Salary::with('employee')->latest()->paginate(5);
-        return view('salaries.index', compact('salaries'));
+        $query = Salary::with('employee');
+        $employees = Employee::all();
+    
+        if ($request->has('karyawan_id') && $request->karyawan_id != '') {
+            $query->where('karyawan_id', $request->karyawan_id);
+        }
+    
+        if ($request->has('bulan') && $request->bulan != '') {
+            $query->where('bulan', $request->bulan);
+        }
+    
+        $salaries = $query->paginate(10);
+        return view('salaries.index', compact('salaries', 'employees'));
     }
 
     /**

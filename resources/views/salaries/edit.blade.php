@@ -1,31 +1,108 @@
-@extends('master')
-@section('title', 'Edit Gaji')
+@extends('layouts.app')
+
+@section('title', 'Edit Salary - App Pegawai')
+
 @section('content')
-<h2>Edit Data Gaji</h2>
-<form action="{{ route('salaries.update', $salary->id) }}" method="POST">
-    @csrf
-    @method('PUT')
-    <label>Karyawan:</label>
-    <select name="karyawan_id">
-        @foreach ($employees as $e)
-        <option value="{{ $e->id }}" {{ $salary->karyawan_id == $e->id ? 'selected' : '' }}>
-            {{ $e->nama_lengkap }}
-        </option>
-        @endforeach
-    </select><br><br>
+<div>
+    <div class="mb-6">
+        <a href="{{ route('salaries.index') }}" class="text-blue-600 hover:text-blue-700 mb-4 inline-flex items-center space-x-2">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Salaries</span>
+        </a>
+        <h2 class="text-3xl font-bold text-gray-800 mt-2">Edit Data Gaji</h2>
+    </div>
 
-    <label>Bulan:</label>
-    <input type="text" name="bulan" value="{{ old('bulan', $salary->bulan) }}"><br><br>
+    <div class="bg-white rounded-lg shadow-md p-6 max-w-xl">
+        <form action="{{ route('salaries.update', $salary->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Karyawan:</label>
+                    <select
+                        name="employee_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('employee_id') border-red-500 @enderror"
+                        required
+                    >
+                        <option value="">-- Pilih Karyawan --</option>
+                        @foreach($employees as $employee)
+                            <option value="{{ $employee->id }}" {{ old('employee_id', $salary->employee_id) == $employee->id ? 'selected' : '' }}>
+                                {{ $employee->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('employee_id')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-    <label>Gaji Pokok:</label>
-    <input type="number" name="gaji_pokok" step="0.01" value="{{ old('gaji_pokok', $salary->gaji_pokok) }}"><br><br>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Bulan:</label>
+                    <input
+                        type="month"
+                        name="bulan"
+                        value="{{ old('bulan', $salary->bulan) }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('bulan') border-red-500 @enderror"
+                        required
+                    />
+                    @error('bulan')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-    <label>Tunjangan:</label>
-    <input type="number" name="tunjangan" step="0.01" value="{{ old('tunjangan', $salary->tunjangan) }}"><br><br>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Gaji Pokok:</label>
+                    <input
+                        type="number"
+                        name="gaji_pokok"
+                        value="{{ old('gaji_pokok', $salary->gaji_pokok) }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('gaji_pokok') border-red-500 @enderror"
+                        required
+                    />
+                    @error('gaji_pokok')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-    <label>Potongan:</label>
-    <input type="number" name="potongan" step="0.01" value="{{ old('potongan', $salary->potongan) }}"><br><br>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tunjangan:</label>
+                    <input
+                        type="number"
+                        name="tunjangan"
+                        value="{{ old('tunjangan', $salary->tunjangan) }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('tunjangan') border-red-500 @enderror"
+                        required
+                    />
+                    @error('tunjangan')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-    <button type="submit">Update</button>
-</form>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Potongan:</label>
+                    <input
+                        type="number"
+                        name="potongan"
+                        value="{{ old('potongan', $salary->potongan) }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('potongan') border-red-500 @enderror"
+                        required
+                    />
+                    @error('potongan')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="pt-4">
+                    <button
+                        type="submit"
+                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Update
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection

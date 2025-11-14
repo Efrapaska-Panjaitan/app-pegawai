@@ -11,10 +11,15 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //$employees = Employee::latest()->paginate(5);
-        $employees = Employee::with('department')->get();
+        $query = Employee::with(['department', 'position']);
+    
+        if ($request->has('search') && $request->search != '') {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+    
+        $employees = $query->paginate(10);
         return view('employees.index', compact('employees'));
     }
 
@@ -24,7 +29,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = \App\Models\Department::all();
-        $positions = \App\Models\Position::all(); // Tambahkan ini
+        $positions = \App\Models\Position::all(); 
 
         return view('employees.create', compact('departments', 'positions'));
     }
@@ -65,8 +70,11 @@ class EmployeeController extends Controller
      */
     public function edit(string $id)
     {
-        $employee = Employee::find($id);
-        return view('employees.edit', compact('employee'));
+        $employee = Employee::findOrFail($id);
+        $departments = Department::all();
+        $positions = Position::all();
+
+        return view('employees.edit', compact('employee', 'departments', 'positions'));
     }
 
     /**

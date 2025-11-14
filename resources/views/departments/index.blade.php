@@ -1,32 +1,69 @@
-@extends('master')
-@section('title', 'Data Departemen')
+@extends('layouts.app')
+
+@section('title', 'Departments - App Pegawai')
+
 @section('content')
-<h2>Data Departemen</h2>
-<a href="{{ route('departments.create') }}">+ Tambah Departemen</a>
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nama Departemen</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($departments as $dept)
-        <tr>
-            <td>{{ $dept->id }}</td>
-            <td>{{ $dept->nama_departemen }}</td>
-            <td>
-                <a href="{{ route('departments.show', $dept->id) }}">Detail</a> |
-                <a href="{{ route('departments.edit', $dept->id) }}">Edit</a> |
-                <form action="{{ route('departments.destroy', $dept->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Yakin ingin menghapus?')">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+<div>
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-gray-800">Departments</h2>
+        <a href="{{ route('departments.create') }}" class="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow-md">
+            <i class="fas fa-plus"></i>
+            <span>Add Department</span>
+        </a>
+    </div>
+
+    @if($departments->count() > 0)
+        <!-- Departments Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Departemen</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Pegawai</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach($departments as $department)
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">{{ $department->nama_departemen }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">{{ $department->employees->count() }} pegawai</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="{{ route('departments.edit', $department->id) }}" class="text-blue-600 hover:text-blue-900 mr-3">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ route('departments.destroy', $department->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-900">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-4">
+            {{ $departments->links() }}
+        </div>
+    @else
+        <!-- Empty State -->
+        <div class="bg-white rounded-lg shadow-md p-12 text-center">
+            <i class="fas fa-briefcase text-gray-300 text-6xl mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">No Departments Yet</h3>
+            <p class="text-gray-500 mb-6">Create departments to organize your employees</p>
+            <a href="{{ route('departments.create') }}" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                Add First Department
+            </a>
+        </div>
+    @endif
+</div>
 @endsection

@@ -1,75 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Input Pegawai</title>
-</head>
-<body>
-  <h1 class="mb-4">Form Pegawai</h1>
-  <form action="{{ route('employees.store') }}" method="POST">
-    @csrf
-    <table>
-      <tr>
-        <td><label for="nama_lengkap">Nama Lengkap:</label></td>
-        <td><input type="text" id="nama_lengkap" name="nama_lengkap"></td>
-      </tr>
-      <tr>
-        <td><label for="email">Email:</label></td>
-        <td><input type="email" id="email" name="email"></td>
-      </tr>
-      <tr>
-        <td><label for="nomor_telepon">Nomor Telepon:</label></td>
-        <td><input type="text" id="nomor_telepon" name="nomor_telepon"></td>
-      </tr>
-      <tr>
-        <td><label for="tanggal_lahir">Tanggal Lahir:</label></td>
-        <td><input type="date" id="tanggal_lahir" name="tanggal_lahir"></td>
-      </tr>
-      <tr>
-        <td><label for="alamat">Alamat:</label></td>
-        <td><textarea id="alamat" name="alamat"></textarea></td>
-      </tr>
-      <tr>
-        <td><label for="tanggal_masuk">Tanggal Masuk:</label></td>
-        <td><input type="date" id="tanggal_masuk" name="tanggal_masuk"></td>
-      </tr>
-      <tr>
-        <td><label for="status">Status:</label></td>
-        <td>
-          <select id="status" name="status">
-            <option value="aktif">Aktif</option>
-            <option value="nonaktif">Nonaktif</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td><label>Departemen:</label></td>
-        <td>
-          <select name="departemen_id" required>
-          @foreach($departments as $department)
-            <option value="{{ $department->id }}">{{ $department->nama_departemen }}</option>
-          @endforeach
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td><label for="jabatan_id">Jabatan:</label></td>
-        <td>
-          <select name="jabatan_id" id="jabatan_id" required>
-            <option value="">-- Pilih Jabatan --</option>
-            @foreach($positions as $position)
-                <option value="{{ $position->id }}">{{ $position->nama_jabatan }}</option>
-            @endforeach
-        </select>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" style="text-align:right;">
-          <button type="submit">Simpan</button>
-        </td>
-      </tr>
-    </table>
-  </form>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('title', 'Add Employee - App Pegawai')
+
+@section('content')
+<div>
+    <div class="mb-6">
+        <a href="{{ route('employees.index') }}" class="text-blue-600 hover:text-blue-700 mb-4 inline-flex items-center space-x-2">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Employees</span>
+        </a>
+        <h2 class="text-3xl font-bold text-gray-800 mt-2">Form Pegawai</h2>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 max-w-2xl">
+        <form action="{{ route('employees.store') }}" method="POST">
+            @csrf
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap:</label>
+                    <input
+                        type="text"
+                        name="nama_lengkap"
+                        value="{{ old('nama_lengkap') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror"
+                        required
+                    />
+                    @error('nama_lengkap')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror"
+                        required
+                    />
+                    @error('email')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon:</label>
+                    <input
+                        type="tel"
+                        name="nomor_telepon"
+                        value="{{ old('nomor_telepon') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('nomor_telepon') border-red-500 @enderror"
+                        required
+                    />
+                    @error('nomor_telepon')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir:</label>
+                    <input
+                        type="date"
+                        name="tanggal_lahir"
+                        value="{{ old('tanggal_lahir') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('tanggal_lahir') border-red-500 @enderror"
+                        required
+                    />
+                    @error('tanggal_lahir')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Alamat:</label>
+                    <textarea
+                        name="alamat"
+                        rows="3"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('alamat') border-red-500 @enderror"
+                        required
+                    >{{ old('alamat') }}</textarea>
+                    @error('alamat')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Masuk:</label>
+                    <input
+                        type="date"
+                        name="tanggal_masuk"
+                        value="{{ old('tanggal_masuk') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('tanggal_masuk') border-red-500 @enderror"
+                        required
+                    />
+                    @error('tanggal_masuk')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Status:</label>
+                    <select
+                        name="status"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status') border-red-500 @enderror"
+                        required
+                    >
+                        <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Tidak Aktif" {{ old('status') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
+                    @error('status')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Departemen:</label>
+                    <select
+                        name="departemen_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('department_id') border-red-500 @enderror"
+                        required
+                    >
+                        <option value="">-- Pilih Departemen --</option>
+                        @foreach($departments as $department)
+                            <option value="{{ $department->id }}" {{ old('departemen_id') == $department->id ? 'selected' : '' }}>
+                                {{ $department->nama_departemen }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('departemen_id')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan:</label>
+                    <select
+                        name="jabatan_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('position_id') border-red-500 @enderror"
+                        required
+                    >
+                        <option value="">-- Pilih Jabatan --</option>
+                        @foreach($positions as $position)
+                            <option value="{{ $position->id }}" {{ old('jabatan_id') == $position->id ? 'selected' : '' }}>
+                                {{ $position->nama_jabatan }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('jabatan_id')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="pt-4">
+                    <button
+                        type="submit"
+                        class="w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
