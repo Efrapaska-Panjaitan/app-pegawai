@@ -21,7 +21,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Karyawan:</label>
                     <select
                         name="karyawan_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('employee_id') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('karyawan_id') border-red-500 @enderror"
                         required
                     >
                         <option value="">-- Pilih Karyawan --</option>
@@ -81,13 +81,13 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Status:</label>
                     <select
                         name="status_absensi"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status_absensi') border-red-500 @enderror"
                         required
                     >
                         <option value="hadir" {{ old('status_absensi') == 'hadir' ? 'selected' : '' }}>Hadir</option>
                         <option value="sakit" {{ old('status_absensi') == 'sakit' ? 'selected' : '' }}>Sakit</option>
                         <option value="izin" {{ old('status_absensi') == 'izin' ? 'selected' : '' }}>Izin</option>
-                        <option value="alpha" {{ old('status_absensi') == 'alpha' ? 'selected' : '' }}>Alpa</option>
+                        <option value="alpha" {{ old('status_absensi') == 'alpha' ? 'selected' : '' }}>Alpha</option>
                     </select>
                     @error('status_absensi')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

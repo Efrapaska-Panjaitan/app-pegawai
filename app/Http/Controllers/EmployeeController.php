@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Department;
+use App\Models\Position;
 
 class EmployeeController extends Controller
 {
@@ -16,7 +17,7 @@ class EmployeeController extends Controller
         $query = Employee::with(['department', 'position']);
     
         if ($request->has('search') && $request->search != '') {
-            $query->where('nama', 'like', '%' . $request->search . '%');
+            $query->where('nama_lengkap', 'like', '%' . $request->search . '%');
         }
     
         $employees = $query->paginate(10);

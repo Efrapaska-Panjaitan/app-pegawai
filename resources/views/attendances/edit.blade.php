@@ -21,18 +21,18 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Karyawan:</label>
                     <select
-                        name="employee_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('employee_id') border-red-500 @enderror"
+                        name="karyawan_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('karyawan_id') border-red-500 @enderror"
                         required
                     >
                         <option value="">-- Pilih Karyawan --</option>
                         @foreach($employees as $employee)
-                            <option value="{{ $employee->id }}" {{ old('employee_id', $attendance->employee_id) == $employee->id ? 'selected' : '' }}>
-                                {{ $employee->nama }}
+                            <option value="{{ $employee->id }}" {{ old('karyawan_id', $attendance->karyawan_id) == $employee->id ? 'selected' : '' }}>
+                                {{ $employee->nama_lengkap }}
                             </option>
                         @endforeach
                     </select>
-                    @error('employee_id')
+                    @error('karyawan_id')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -81,16 +81,16 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Status:</label>
                     <select
-                        name="status"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status') border-red-500 @enderror"
+                        name="status_absensi"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status_absensi') border-red-500 @enderror"
                         required
                     >
-                        <option value="Hadir" {{ old('status', $attendance->status) == 'Hadir' ? 'selected' : '' }}>Hadir</option>
-                        <option value="Sakit" {{ old('status', $attendance->status) == 'Sakit' ? 'selected' : '' }}>Sakit</option>
-                        <option value="Izin" {{ old('status', $attendance->status) == 'Izin' ? 'selected' : '' }}>Izin</option>
-                        <option value="Alpa" {{ old('status', $attendance->status) == 'Alpa' ? 'selected' : '' }}>Alpa</option>
+                        <option value="hadir" {{ old('status_absensi', $attendance->status_absensi) == 'hadir' ? 'selected' : '' }}>Hadir</option>
+                        <option value="sakit" {{ old('status_absensi', $attendance->status_absensi) == 'sakit' ? 'selected' : '' }}>Sakit</option>
+                        <option value="izin" {{ old('status_absensi', $attendance->status_absensi) == 'izin' ? 'selected' : '' }}>Izin</option>
+                        <option value="alpha" {{ old('status_absensi', $attendance->status_absensi) == 'alpha' ? 'selected' : '' }}>Alpha</option>
                     </select>
-                    @error('status')
+                    @error('status_absensi')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>

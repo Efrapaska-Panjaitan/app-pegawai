@@ -22,7 +22,7 @@
                         <option value="">Semua Karyawan</option>
                         @foreach($employees as $emp)
                             <option value="{{ $emp->id }}" {{ request('karyawan_id') == $emp->id ? 'selected' : '' }}>
-                                {{ $emp->nama }}
+                                {{ $emp->nama_lengkap }}
                             </option>
                         @endforeach
                     </select>
@@ -84,12 +84,12 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                @if($attendance->status_absensi == 'Hadir') bg-green-100 text-green-800
-                                @elseif($attendance->status_absensi == 'Sakit') bg-yellow-100 text-yellow-800
-                                @elseif($attendance->status_absensi == 'Izin') bg-blue-100 text-blue-800
+                                @if($attendance->status_absensi == 'hadir') bg-green-100 text-green-800
+                                @elseif($attendance->status_absensi == 'sakit') bg-yellow-100 text-yellow-800
+                                @elseif($attendance->status_absensi == 'izin') bg-blue-100 text-blue-800
                                 @else bg-red-100 text-red-800
                                 @endif">
-                                {{ $attendance->status_absensi }}
+                                {{ ucfirst($attendance->status_absensi) }}
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">

@@ -1,41 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detail Pegawai</title>
-</head>
-<body>
-  <h1>Detail Pegawai</h1>
-  <table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-      <th>Nama Lengkap</th>
-      <td>{{ $employee->nama_lengkap }}</td>
-    </tr>
-    <tr>
-      <th>Email</th>
-      <td>{{ $employee->email }}</td>
-    </tr>
-    <tr>
-      <th>Nomor Telepon</th>
-      <td>{{ $employee->nomor_telepon }}</td>
-    </tr>
-    <tr>
-      <th>Tanggal Lahir</th>
-      <td>{{ $employee->tanggal_lahir }}</td>
-    </tr>
-    <tr>
-      <th>Alamat</th>
-      <td>{{ $employee->alamat }}</td>
-    </tr>
-    <tr>
-      <th>Tanggal Masuk</th>
-      <td>{{ $employee->tanggal_masuk }}</td>
-    </tr>
-    <tr>
-      <th>Status</th>
-      <td>{{ $employee->status }}</td>
-    </tr>
-  </table>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('title', 'Detail Pegawai - ' . $employee->nama_lengkap)
+
+@section('content')
+<div class="max-w-3xl mx-auto">
+    <div class="mb-6 flex items-center justify-between">
+        <h2 class="text-2xl font-semibold text-gray-800">Detail Pegawai</h2>
+        <a href="{{ route('employees.index') }}" class="text-blue-600 hover:text-blue-800">&larr; Kembali</a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <table class="w-full table-auto border-collapse">
+            <tbody>
+                <tr class="border-b">
+                    <th class="text-left py-2 px-4 w-1/3">Nama Lengkap</th>
+                    <td class="py-2 px-4">{{ $employee->nama_lengkap }}</td>
+                </tr>
+                <tr class="border-b">
+                    <th class="text-left py-2 px-4">Email</th>
+                    <td class="py-2 px-4">{{ $employee->email }}</td>
+                </tr>
+                <tr class="border-b">
+                    <th class="text-left py-2 px-4">Nomor Telepon</th>
+                    <td class="py-2 px-4">{{ $employee->nomor_telepon }}</td>
+                </tr>
+                <tr class="border-b">
+                    <th class="text-left py-2 px-4">Tanggal Lahir</th>
+                    <td class="py-2 px-4">{{ $employee->tanggal_lahir }}</td>
+                </tr>
+                <tr class="border-b">
+                    <th class="text-left py-2 px-4">Alamat</th>
+                    <td class="py-2 px-4">{{ $employee->alamat }}</td>
+                </tr>
+                <tr class="border-b">
+                    <th class="text-left py-2 px-4">Tanggal Masuk</th>
+                    <td class="py-2 px-4">{{ $employee->tanggal_masuk }}</td>
+                </tr>
+                <tr>
+                    <th class="text-left py-2 px-4">Status</th>
+                    <td class="py-2 px-4">{{ ucfirst($employee->status) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection

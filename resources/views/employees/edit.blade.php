@@ -22,12 +22,12 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap:</label>
                     <input
                         type="text"
-                        name="nama"
-                        value="{{ old('nama', $employee->nama) }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('nama') border-red-500 @enderror"
+                        name="nama_lengkap"
+                        value="{{ old('nama_lengkap', $employee->nama_lengkap) }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('nama_lengkap') border-red-500 @enderror"
                         required
                     />
-                    @error('nama')
+                    @error('nama_lengkap')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -119,18 +119,18 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Departemen:</label>
                     <select
-                        name="department_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('department_id') border-red-500 @enderror"
+                        name="departemen_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('departemen_id') border-red-500 @enderror"
                         required
                     >
                         <option value="">-- Pilih Departemen --</option>
                         @foreach($departments as $department)
-                            <option value="{{ $department->id }}" {{ old('department_id', $employee->department_id) == $department->id ? 'selected' : '' }}>
-                                {{ $department->nama }}
+                            <option value="{{ $department->id }}" {{ old('departemen_id', $employee->departemen_id) == $department->id ? 'selected' : '' }}>
+                                {{ $department->nama_departemen }}
                             </option>
                         @endforeach
                     </select>
-                    @error('department_id')
+                    @error('departemen_id')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -138,18 +138,18 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan:</label>
                     <select
-                        name="position_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('position_id') border-red-500 @enderror"
+                        name="jabatan_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('jabatan_id') border-red-500 @enderror"
                         required
                     >
                         <option value="">-- Pilih Jabatan --</option>
                         @foreach($positions as $position)
-                            <option value="{{ $position->id }}" {{ old('position_id', $employee->position_id) == $position->id ? 'selected' : '' }}>
-                                {{ $position->nama }}
+                            <option value="{{ $position->id }}" {{ old('jabatan_id', $employee->jabatan_id) == $position->id ? 'selected' : '' }}>
+                                {{ $position->nama_jabatan }}
                             </option>
                         @endforeach
                     </select>
-                    @error('position_id')
+                    @error('jabatan_id')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>

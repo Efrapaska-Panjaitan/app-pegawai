@@ -63,6 +63,11 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="{{ route('employees.show', $employee->id) }}" class="text-gray-700 hover:text-gray-900 mr-3 inline-flex items-center" title="Detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </a>
                             <a href="{{ route('employees.edit', $employee->id) }}" class="text-blue-600 hover:text-blue-900 mr-3">
                                 <i class="fas fa-edit"></i>
                             </a>

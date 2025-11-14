@@ -21,18 +21,18 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Karyawan:</label>
                     <select
-                        name="employee_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('employee_id') border-red-500 @enderror"
+                        name="karyawan_id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('karyawan_id') border-red-500 @enderror"
                         required
                     >
                         <option value="">-- Pilih Karyawan --</option>
                         @foreach($employees as $employee)
-                            <option value="{{ $employee->id }}" {{ old('employee_id', $salary->employee_id) == $employee->id ? 'selected' : '' }}>
-                                {{ $employee->nama }}
+                            <option value="{{ $employee->id }}" {{ old('karyawan_id', $salary->karyawan_id) == $employee->id ? 'selected' : '' }}>
+                                {{ $employee->nama_lengkap }}
                             </option>
                         @endforeach
                     </select>
-                    @error('employee_id')
+                    @error('karyawan_id')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
